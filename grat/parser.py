@@ -80,8 +80,6 @@ class Page(object):
             else:
                 prev_tags.append(each_tag)
 
-                #aanus
-                
 
 
 
