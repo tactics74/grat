@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+===========
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+===========
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+===========
+<title>Python Programming Language &ndash; Official Website</title>
+===========
+<meta name="keywords" content="python programming language object oriented web free source" />
+===========
+<script type="text/javascript" src="/js/iotbs2-key-directors-load.js"></script>
+===========
+<script type="text/javascript" src="/js/iotbs2-directors.js"></script>
+===========
+<script type="text/javascript" src="/js/iotbs2-core.js"></script>
+===========
+<a href="/" id="logolink" accesskey="1"><img id="logo" src="/images/python-logo.gif" alt="homepage" border="0" /></a>
+===========
+<div class="skiptonav"><a href="#left-hand-navigation" accesskey="2"><img src="/images/trans.gif" id="skiptonav" alt="skip to navigation" border="0" /></a></div>
+===========
+<div class="skiptonav"><a href="#content-body" accesskey="3"><img src="/images/trans.gif" id="skiptocontent" alt="skip to content" border="0" /></a></div>
+===========
+<form method="get" action="http://google.com/search" id="searchform" name="searchform">
+===========
+<input type="hidden" id="domains" name="domains" value="www.python.org" />
+===========
+<input type="hidden" id="sitesearch" name="sitesearch" value="www.python.org" />
+===========
+<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
+===========
+<input type="text" class="input-text" name="q" id="q" />
+===========
+<input type="submit" value="search" class="input-button" name="submit" id="submit" />
+===========
+<a href="/search" class="reference">Advanced Search</a>
+===========
+<div id="screen-switcher"></div>
+===========
+<a href="/about/" title="About The Python Language">About</a>
+===========
+<a href="/news/" title="Major Happenings Within the Python Community">News</a>
+===========
+<a href="/doc/" title="Tutorials, Library Reference, C API">Documentation</a>
+===========
+<a href="/download/" title="Start Running Python Under Windows, Mac, Linux and Others">Download</a>
+===========
+<a href="/getit/" title="Alternate Download page for China">下载</a>
+===========
+<a href="/community/" title="Mailing Lists, Jobs, Conferences, SIGs, Online Chats">Community</a>
+===========
+<a href="/psf/" title="Python Software Foundation">Foundation</a>
+===========
+<a href="http://docs.python.org/devguide/" title="Development of the Python language and website">Core Development</a>
+===========
+<h4><a href="/about/help/">Help</a></h4>
+===========
+<h4><a href="http://pypi.python.org/pypi" title="Repository of Python Software">Package Index</a></h4>
+===========
+<h4><a href="/download/releases/2.7.3/">Quick Links (2.7.3)</a></h4>
+===========
+<li><a href="http://docs.python.org/" title="Manuals for Latest Stable Release">Documentation</a></li>
+===========
+<li><a href="/ftp/python/2.7.3/python-2.7.3.msi" title="Easy Installer of Python under Windows">Windows Installer</a></li>
+===========
+<li><a href="/ftp/python/2.7.3/Python-2.7.3.tar.bz2" title="Grab the Source for the Latest Stable Release">Source Distribution</a></li>
+===========
+<h4><a href="/download/releases/3.2.3/">Quick Links (3.2.3)</a></h4>
+===========
+<li><a href="http://docs.python.org/3.2/" title="Manual for Python 3.2.3 Release">Documentation</a></li>
+===========
+<li><a href="/ftp/python/3.2.3/python-3.2.3.msi" title="Easy Installer of Python under Windows">Windows Installer</a></li>
+===========
+<li><a href="/ftp/python/3.2.3/Python-3.2.3.tar.bz2" title="Grab the Source for the Python 3.2.3 Release">Source Distribution</a></li>
+===========
+<h4><a href="/community/jobs/" title="Employers and Job Openings">Python Jobs</a></h4>
+===========
+<h4><a href="/community/merchandise/" title="T-shirts &amp; more; a portion goes to the PSF">Python Merchandise</a></h4>
+===========
+<h4><a style="margin-top:1.5em" href="http://wiki.python.org/moin/">Python Wiki</a></h4>
+===========
+<h4><a style="margin-top:1.5em" href="http://blog.python.org/">Python Insider Blog</a></h4>
+===========
+<h4><a style="margin-top:1.5em" href="http://wiki.python.org/moin/Python2orPython3">Python 2 or 3?</a></h4>
+===========
+<h4><a style="margin-top:1.5em" href="/about/website">Help Maintain Website</a></h4>
+===========
+<h4><a style="color:#D58228; margin-top:1.5em" href="/psf/donations/">Help Fund Python</a></h4>
+===========
+<a href="/psf/donations/"><img width="116" height="42" src="/images/donate.png" alt="" title="" /></a>
+===========
+<a href="http://wiki.python.org/moin/Languages">
+===========
+<h4><a href="http://wiki.python.org/moin/Languages">Non-English Resources</a></h4>
+===========
+<iframe src="https://www.google.com/calendar/embed?title=Release%20Schedule&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=300&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=b6v58qvojllt0i6ql654r1vh00%40group.calendar.google.com&amp;color=%23B1365F&amp;" style=" border-width:0 " width="180" height="300" frameborder="0" scrolling="no">
+===========
+<a href="http://www.google.com/calendar/ical/b6v58qvojllt0i6ql654r1vh00%40group.calendar.google.com/public/basic.ics">
+===========
+<h1 class="pageheading">Python Programming Language &ndash; Official Website</h1>
+===========
+<h4><a href="http://wiki.python.org/moin/Python2orPython3">Python 3</a> Poll</h4>
+===========
+<p>I wish there was Python 3 support in</p>
+===========
+<form method="POST" action="/3kpoll">
+===========
+<p><input type="text" class="input-text" name="pkg" /></p>
+===========
+<p>(enter <a href="http://pypi.python.org/pypi">PyPI package name</a>)</p>
+===========
+<input type="submit" value="Vote" />
+===========
+<a href="/3kpoll">Results</a>
+===========
+<h4>Carmanah lights the way with Python</h4>
+===========
+<a href="/about/success/carmanah/">
+===========
+<p>... joining users such as <a class="reference" href="about/success/rackspace/">Rackspace</a>
+===========
+<a class="reference" href="about/success/ilm/">Industrial Light and Magic</a>
+===========
+<a class="reference" href="about/success/astra/">AstraZeneca</a>
+===========
+<a class="reference" href="about/success/honeywell/">Honeywell</a>
+===========
+<a class="reference" href="about/success/">and many others</a>.</p>
+===========
+<h4>What they are saying...</h4>
+===========
+<b>Industrial Light & Magic:</b><br />
+===========
+<a class="reference" href="http://www.ilm.com">Industrial Light &amp; Magic</a>.</p>
+===========
+<a href="/about/quotes" class="more" title="more quotes">more...</a>
+===========
+<h4>Using Python For...</h4>
+===========
+<li class="group"><a href="http://wiki.python.org/moin/WebProgramming">Web Programming</a></li>
+===========
+<a href="http://wiki.python.org/moin/CgiScripts">CGI</a>
+===========
+<a href="http://www.zope.org/">Zope</a>
+===========
+<a href="http://www.djangoproject.com/">Django</a>
+===========
+<a href="http://www.turbogears.org/">TurboGears</a>
+===========
+<a href="http://wiki.python.org/moin/PythonXml">XML</a>
+===========
+<li class="group"><a href="http://wiki.python.org/moin/DatabaseProgramming/">Databases</a></li>
+===========
+<a href="http://www.egenix.com/files/python/mxODBC.html">ODBC</a>
+===========
+<a href="http://sourceforge.net/projects/mysql-python">MySQL</a>
+===========
+<li class="group"><a href="http://wiki.python.org/moin/GuiProgramming">GUI Development</a></li>
+===========
+<a href="http://wiki.python.org/moin/WxPython">wxPython</a>
+===========
+<a href="http://wiki.python.org/moin/TkInter">tkInter</a>
+===========
+<a href="http://wiki.python.org/moin/PyGtk">PyGtk</a>
+===========
+<a href="http://wiki.python.org/moin/PyQt">PyQt</a>
+===========
+<li class="group"><a href="http://wiki.python.org/moin/NumericAndScientific">Scientific and Numeric</a></li>
+===========
+<a href="http://www.pentangle.net/python/handbook/">Physics</a>
+===========
+<li class="group"><a href="/community/sigs/current/edu-sig">Education</a></li>
+===========
+<a href="http://www.openbookproject.net/pybiblio/">pyBiblio</a>
+===========
+<a href="http://osl.iu.edu/~lums/swc/">Software Carpentry Course</a>
+===========
+<li class="group"><a href="/about/apps">Networking</a></li>
+===========
+<a href="http://docs.python.org/howto/sockets.html">Sockets</a>
+===========
+<a href="http://twistedmatrix.com/trac/">Twisted</a>
+===========
+<li class="group"><a href="/about/apps">Software Development</a></li>
+===========
+<a href="http://buildbot.net/trac">Buildbot</a>
+===========
+<a href="http://www.edgewall.com/trac/">Trac</a>
+===========
+<a href="http://roundup.sourceforge.net/">Roundup</a>
+===========
+<a href="http://wiki.python.org/moin/IntegratedDevelopmentEnvironments">IDEs</a>
+===========
+<li class="group"><a href="/about/apps">Game Development</a></li>
+===========
+<a href="http://www.pygame.org/news.html">PyGame</a>
+===========
+<a href="http://www.alobbs.com/pykyra">PyKyra</a>
+===========
+<a href="http://www.vrplumber.com/py3d.py">3D Rendering</a>
+===========
+<a href="/about/apps" class="more">more...</a>
+===========
+</strong></p>
+===========
+<a class="reference external" href="/psf/license/">open source license</a>.</p>
+===========
+<a class="reference external" href="http://wiki.python.org/moin/Python2orPython3">Python 2 or Python 3</a>.</p>
+===========
+<p>The <a class="reference external" href="/psf/">Python Software Foundation</a>
+===========
+<a class="reference external" href="http://pycon.org/">
+===========
+<p><a class="reference external" href="/about/">Read more</a>, -or- <a class="reference external" href="/download/">download Python now</a></p>
+===========
+<h2 class="news">First beta for Python 3.3.0 released</h2>
+===========
+<p>The first beta release for Python <a class="reference external" href="/download/releases/3.3.0/">3.3.0</a> has been released for testing.</p>
+===========
+<div class="pubdate">Published: Wed, 27 Jun 2012, 08:00 +0200</div>
+===========
+<h2 class="news">Fourth alpha for Python 3.3.0 released</h2>
+===========
+<p>The fourth alpha release for Python <a class="reference external" href="/download/releases/3.3.0/">3.3.0</a> has been released for testing.</p>
+===========
+<div class="pubdate">Published: Thu, 31 May 2012, 22:00 +0200</div>
+===========
+<h2 class="news">Request for Proposal: Redesign python.org</h2>
+===========
+<p>The PSF has published <a class="reference external" href="http://pythonorg-redesign.readthedocs.org/">an RFP for redesigning python.org</a>. We look forward to seeing what the community can produce.</p>
+===========
+<div class="pubdate">Published: Thu, 31 May 2012, 10:00 +0200</div>
+===========
+<h2 class="news">PyGotham Deadline for Proposals</h2>
+===========
+<p>The deadline for proposals for PyGotham II, June 8-9 is May 30. Please submit proposals to the <a class="reference external" href="https://pygotham.org/">pygotham.org site</a>.</p>
+===========
+<div class="pubdate">Published: Fri, 12 May 2012, 14:51 +0000</div>
+===========
+<h2 class="news">Portable Python 2.7.3.1 relased</h2>
+===========
+<p><a class="reference external" href="http://portablepython.com/wiki/PortablePython2.7.3.1">Portable Python 2.7.3.1</a> has been released based on Python 2.7.3 with the biggest set of included libraries in the history of Portable Python.</p>
+===========
+<div class="pubdate">Published: Fri, 12 May 2012, 00:51 +0000</div>
+===========
+<h2 class="news">Third alpha for Python 3.3.0 released</h2>
+===========
+<p>The third alpha release for Python <a class="reference external" href="/download/releases/3.3.0/">3.3.0</a> has been released for testing.</p>
+===========
+<div class="pubdate">Published: Tue, 1 May 2012, 20:00 +0200</div>
+===========
+<h2 class="news">python.org DNS zone now hosted using DynECT</h2>
+===========
+<p>We would like to thank <a class="reference external" href="http://dyn.com/">Dyn</a> for hosting the python.org DNS zone. See all infrastructure sponsors at our <a class="reference external" href="/psf/league/">League of Awesome</a>.</p>
+===========
+<div class="pubdate">Published: Mon, 16 April 2012, 23:00 +0200</div>
+===========
+<a href="/channews.rdf">RSS</a>
+===========
+<a href="/about/website">Website maintained by the Python community</a><br/>
+===========
+<a href="http://www.xs4all.com/" title="Web and email hosting provided by xs4all, Netherlands">hosting by xs4all</a>
+===========
+<a href="http://www.timparkin.co.uk/" title="Design by Tim Parkin, Yorkshire man, photographer and developer">design by Tim Parkin</a>
+===========
+<a href='/psf/'>Python Software Foundation</a><br/>
+===========
+<a href="/about/legal">Legal Statements</a>
+===========

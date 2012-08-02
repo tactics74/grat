@@ -6,10 +6,11 @@ from grat import *
 from urllib2 import *
 
 def main():
-    p1 = parser.Element("<p>Hello world!</p>")
-    print p1
-    print p1.content
-    print p1.tag_type
+    webpage = parser.Page("http://www.python.org")
+    webpage.parse_html()
+    for el in webpage.tags:
+        print el.content
+        print '=' * 25
 
 if __name__ == "__main__":
     main()
