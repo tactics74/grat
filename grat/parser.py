@@ -17,7 +17,7 @@ class ArgumentError(Exception):
 
 class Element(object):
     """Object to hold an HTML element."""
-    def __init__(self, value):
+    def __init__(self, content):
         if type(content) == list:
             #assumes tags are in order
             self.start_tag = content[0]
@@ -80,7 +80,7 @@ class Page(object):
             else:
                 prev_tags.append(each_tag)
 
-
+        self.tags = prev_tags
 
 
 
