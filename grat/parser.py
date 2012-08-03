@@ -66,7 +66,7 @@ class Page(object):
             print "Error: ", self.name, " has a null value."
 
         prev_tags = []
-        future_tags = find_all_tags(url)
+        future_tags = find_all_tags(self.value)
         for each_tag in future_tags:
             if each_tag.startswith("</"):
                 curr_element_tags = []
@@ -82,6 +82,34 @@ class Page(object):
 
         self.tags = prev_tags
 
+    def find_all_tags(stryng):
+        """Returns all tags in a list"""
+       tags = [] 
+       while True:
+            if stryng == "":
+                break
+            index = stryng.find('<')
+            
+            if index > stryng.find('>'):
+                index = stryng.find('>') + 1
+
+            if index == 0:
+                index = stryng.find('>') + 1
+                
+            tags.append(stryng[:index])
+            stryng = stryng[index:]
+       return tags
+       
+
+    def find_tag_type(tag):
+        """Returns tag stripped of angle brackets and forward slash"""
+        if tag.startswith('</'):
+            return tag[2:-1].split()[0]
+        
+        if tag.startswith('<'):
+            return tag[1:-1].split()[0]
+        
+        else: return tag
 
 
 
