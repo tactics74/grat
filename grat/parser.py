@@ -80,8 +80,34 @@ class Page(object):
             else:
                 prev_tags.append(each_tag)
 
+    def find_all_tags(stryng):
+        """Returns all tags in a list"""
+       tags = [] 
+       while True:
+            if stryng == "":
+                break
+            index = stryng.find('<')
+            
+            if index > stryng.find('>'):
+                index = stryng.find('>') + 1
 
+            if index == 0:
+                index = stryng.find('>') + 1
+                
+            tags.append(stryng[:index])
+            stryng = stryng[index:]
+       return tags
+       
 
+    def find_tag_type(tag):
+        """Returns tag stripped of angle brackets and forward slash"""
+        if tag.startswith('</'):
+            return tag[2:-1].split()[0]
+        
+        if tag.startswith('<'):
+            return tag[1:-1].split()[0]
+        
+        else: return tag
 
 
 
