@@ -47,8 +47,10 @@ class Element(object):
 
     def expand(self):
         """Returns a string that contains the expanded version of self.content.
-By expanded version we mean that all element objects inside
-self.content will be in there string form."""
+        By expanded version we mean that all element objects inside
+        self.content will be in there string form
+        By expanded version we mean that all element objects inside 
+        self.content will be in there string form."""
         pass
 
     def print_stats(self):
@@ -92,7 +94,8 @@ class Page(object):
                         curr_element_tags.append(each_tag)
 
                         curr_element = Element(curr_element_tags)
-                        if curr_element != None:
+                        if curr_element != None: 
+
                             prev_tags.append( curr_element )
                         break
 
@@ -103,7 +106,9 @@ class Page(object):
 
     def find_all_tags(self, stryng):
         """Returns all tags in a list"""
+
         tags = []
+
         while True:
             if stryng.strip() == '':
                 break
