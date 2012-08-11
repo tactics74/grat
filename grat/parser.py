@@ -46,12 +46,38 @@ class Element(object):
         return -1
 
     def expand(self):
-        """Returns a string that contains the expanded version of self.content.
-        By expanded version we mean that all element objects inside
-        self.content will be in there string form
-        By expanded version we mean that all element objects inside 
-        self.content will be in there string form."""
-        pass
+        """Returns a string that contains the expanded version of self.content"""
+        expanded = []
+        expanded.append(self.start_tag)
+        
+        for item in self.content:
+            if type(item) == Element:
+                item.get_child(expanded)
+                
+            if type(item) == list:
+                for items in item:
+                    if type(items) == Element:
+                        items.get_child(expanded)
+                        
+        expanded.append(self.closing_tag)
+        result = "".join(expanded)
+        return result
+
+    def get_child(self, lyst):
+        """Expands child of parent element"""
+        lyst.append(self.start_tag)
+        
+        if type(self.content) == Element:
+            self.content.get_child(lyst)
+            
+        if type(self.content) ==  list:
+                for item in self.content:
+                    if type(item) == Element:
+                        item.get_child(lyst)
+                        
+                    else: lyst.append(item)
+     
+        lyst.append(self.closing_tag)        
 
     def print_stats(self):
         print "Start tag: ", str(self.start_tag)
