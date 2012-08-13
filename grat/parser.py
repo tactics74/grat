@@ -16,7 +16,10 @@ for a function/class."""
 
 
 class Element(object):
-    """Object to hold an HTML element."""
+    """Object to hold an HTML element.  If content is a list then index 0 will 
+    be start tag, index -1 will be closing tag, and the remaining will be the 
+    content of the element.  If content is a string than it must start with a 
+    < and end with a >."""
     def __init__(self, content):
         if content == None:
             self.content = None
@@ -90,11 +93,11 @@ class Page(object):
             opener.addheaders = [('User-agent', 'Mozilla/5.0')]
             response = opener.open(url)
             self.value = response.read()
-            self.parse_html()
+            self._parse_html()
         except urllib2.URLError, e:
             print e.reason
 
-    def parse_html(self):
+    def _parse_html(self):
         """Parses self.value into a list of elements"""
         if self.value == None:
             print "Error: ", self.name, " has a null value."
@@ -124,7 +127,7 @@ class Page(object):
         self.html = prev_tags[0]
 
     def find_all_tags(self, stryng):
-        """Returns all tags in a list"""
+        """Returns all tags in a stryng"""
 
         tags = []
 
