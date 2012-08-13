@@ -63,21 +63,14 @@ class Element(object):
         result = "".join(expanded)
         return result
 
-    def get_child(self, lyst):
-        """Expands child of parent element"""
-        lyst.append(self.start_tag)
-        
-        if type(self.content) == Element:
-            self.content.get_child(lyst)
-            
-        if type(self.content) ==  list:
-                for item in self.content:
-                    if type(item) == Element:
-                        item.get_child(lyst)
-                        
-                    else: lyst.append(item)
-     
-        lyst.append(self.closing_tag)        
+    def get_childern(self, lyst):
+        """Gets all Element objects inside self.content."""
+        elements = list()
+        for item in self.content:
+            if type(item) == Element:
+                elements.append(item)
+
+        return elements
 
     def print_stats(self):
         print "Start tag: ", str(self.start_tag)
@@ -85,7 +78,7 @@ class Element(object):
         print "Content: ", str(self.content)
 
     def __str__(self):
-        return str(self.start_tag) + str(self.content) + str(self.closing_tag)
+        return self.expand()
 
 
 class Page(object):

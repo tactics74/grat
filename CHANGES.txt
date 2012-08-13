@@ -1,1 +1,4 @@
-0.0.1, 7/26/12 -- Initial release.
+0.0.1, 7/26/12 -- Added building blocks of parser -- Greg
+0.0.2, 8/02/12 -- Added find_all_tags and find_tag_type -- Matt
+0.0.3, 8/06/12 -- Fixed all major bugs for parser -- Greg
+0.0.4, 8/10/12 -- Expand and get_child functions add -- Matt
