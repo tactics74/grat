@@ -55,16 +55,27 @@ class Element(object):
         
         for item in self.content:
             if type(item) == Element:
-                item.get_child(expanded)
-                
-            if type(item) == list:
+                expanded.append(item.start_tag)
+                lyst = item.get_children()
+                for element in lyst:
+                    expanded.append(element.expand())
+                expanded.append(item.closing_tag)
+            
+            elif type(item) == list:
                 for items in item:
                     if type(items) == Element:
-                        items.get_child(expanded)
-                        
+                        expanded.append(items.start_tag)
+                        lyst = items.get_children()
+                        for element in lyst:
+                            expanded.append(element.expand())
+                        expanded.append(items.closing_tag)
+            else: expanded.append(item)       
+   
         expanded.append(self.closing_tag)
         result = "".join(expanded)
+        
         return result
+
 
     def get_children(self):
         """Gets all Element objects inside self.content."""
