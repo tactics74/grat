@@ -66,7 +66,7 @@ class Element(object):
         result = "".join(expanded)
         return result
 
-    def get_childern(self, lyst):
+    def get_children(self):
         """Gets all Element objects inside self.content."""
         elements = list()
         for item in self.content:
@@ -148,6 +148,11 @@ class Page(object):
             stryng = stryng[index:]
         return tags
        
+
+    def get_children(self):
+        """Wraper to to pass html to get_children"""
+        return self.html.get_children()
+
 
     def find_tag_type(self, tag):
         """Returns tag stripped of angle brackets and forward slash"""
