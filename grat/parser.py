@@ -147,7 +147,20 @@ class Page(object):
 
             stryng = stryng[index:]
         return tags
-       
+
+    def find_all_text(self):
+        """Returns all text inside any of the body."""
+        #============ Pesudo ====================
+        # Note: This won't work completely bc some
+        # text can be found inside a tag so it 
+        # needs work.
+        #========================================
+        # find body content
+        # remove scipt elements
+        # remove all tags
+        # return ' '.join( whats left )
+        #========= End of Pesudo =================
+        pass
 
     def get_children(self):
         """Wraper to to pass html to get_children"""
