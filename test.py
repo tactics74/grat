@@ -6,7 +6,7 @@ from grat import *
 from urllib2 import *
 
 def main():
-    webpage = Parser.Page("http://www.python.org")
+    webpage = parser.Page("http://www.python.org")
     print webpage.get_children()
 
 if __name__ == "__main__":
