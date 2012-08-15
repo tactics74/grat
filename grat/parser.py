@@ -1,5 +1,5 @@
 """
-File: parser.py
+File: Parser.py
 Parser for html code to text
 """
 import urllib2
