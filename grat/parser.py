@@ -52,7 +52,7 @@ class Element(object):
         """Returns a string that contains the expanded version of self.content"""
         expanded = []
         expanded.append(self.start_tag)
-        
+     
         for item in self.content:
             if type(item) == Element:
                 expanded.append(item.start_tag)
@@ -75,7 +75,7 @@ class Element(object):
         result = "".join(expanded)
         
         return result
-
+    
 
     def get_children(self):
         """Gets all Element objects inside self.content."""
@@ -85,6 +85,7 @@ class Element(object):
                 elements.append(item)
 
         return elements
+    
 
     def print_stats(self):
         print "Start tag: ", str(self.start_tag)
@@ -135,7 +136,7 @@ class Page(object):
             else:
                 prev_tags.append(each_tag)
 
-        self.html = prev_tags[0]
+        self.html = prev_tags[1]
 
     def find_all_tags(self, stryng):
         """Returns all tags in a stryng"""
