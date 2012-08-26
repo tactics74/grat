@@ -58,30 +58,30 @@ class Element(object):
                 exp_tags.append(item.start_tag)
                 lyst = item.get_children()
                 for element in lyst:
-                    subLyst = element.expand()
-                    for i in subLyst:
-                        exp_tags.append(i)
+                    exp_tags.append(element.expand())
                 exp_tags.append(item.closing_tag)
             
-            elif type(item) == list:
-                for items in item:
-                    if type(items) == Element:
-                        exp_tags.append(items.start_tag)
-                        lyst = items.get_children()
-                        for element in lyst:
-                            subLyst = element.expand()
-                            for i in sublyst:
-                                exp_tags.append(i)
-                        exp_tags.append(items.closing_tag)
             else: exp_tags.append(item)       
              
         exp_tags.append(self.closing_tag)
-        #print exp_tags
+        #print exp_tags, '\n'
         return exp_tags
-
     
+
+    def flatten(self, lyst):
+        result = []
+        for item in lyst:
+            if hasattr(item, "__iter__") and not isinstance(item, basestring):
+                result.extend(self.flatten(item))
+            else:
+                result.append(item)
+        return result
+
+      
     def print_styled(self, lyst):
         """Returns stylized html element in string form"""
+        lyst = self.flatten(lyst)
+        
         indent = 0
         index = 0
         space  = " " * 2
