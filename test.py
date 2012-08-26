@@ -6,8 +6,8 @@ from grat import *
 from urllib2 import *
 
 def main():
-    webpage = parser.Page("http://www.python.org")
-    print webpage.html
+    webpage = parser.Page("www.python.org")
+    print webpage
 
 if __name__ == "__main__":
     main()

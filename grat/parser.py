@@ -49,41 +49,78 @@ class Element(object):
         return -1
 
     def expand(self):
-        """Returns a string that contains the expanded version of self.content"""
-        expanded = []
-        expanded.append(self.start_tag)
-     
+        """Returns a list that contains the expanded version of self.content"""
+        exp_tags = []
+        exp_tags.append(self.start_tag)
+        
         for item in self.content:
             if type(item) == Element:
-                expanded.append(item.start_tag)
+                exp_tags.append(item.start_tag)
                 lyst = item.get_children()
                 for element in lyst:
-                    expanded.append(element.expand())
-                expanded.append(item.closing_tag)
+                    subLyst = element.expand()
+                    for i in subLyst:
+                        exp_tags.append(i)
+                exp_tags.append(item.closing_tag)
             
             elif type(item) == list:
                 for items in item:
                     if type(items) == Element:
-                        expanded.append(items.start_tag)
+                        exp_tags.append(items.start_tag)
                         lyst = items.get_children()
                         for element in lyst:
-                            expanded.append(element.expand())
-                        expanded.append(items.closing_tag)
-            else: expanded.append(item)       
-   
-        expanded.append(self.closing_tag)
-        result = "".join(expanded)
+                            subLyst = element.expand()
+                            for i in sublyst:
+                                exp_tags.append(i)
+                        exp_tags.append(items.closing_tag)
+            else: exp_tags.append(item)       
+             
+        exp_tags.append(self.closing_tag)
+        #print exp_tags
+        return exp_tags
+
+    
+    def print_styled(self, lyst):
+        """Returns stylized html element in string form"""
+        indent = 0
+        index = 0
+        space  = " " * 2
+        while True:
+            temp = lyst[index]
+            #print "This is temp" , temp
+            #print indent
+            #print "Before: ", lyst[index]        
+            lyst[index] = (space * indent) + lyst[index] + '\n' 
+            #print "After: ", lyst[index]
+
+            if temp.endswith("/>"):
+                pass
+                
+            elif temp.startswith("</"):
+                    #print "</"
+                indent -= 1
+                  
+            elif temp.startswith("<"):
+                    #print "<"
+                indent += 1
+
+            else: pass
+            
+            index += 1
+            if index > len(lyst) -1:
+                break
         
-        return result
+        return " ".join(lyst)
     
 
     def get_children(self):
         """Gets all Element objects inside self.content."""
         elements = list()
+        
         for item in self.content:
             if type(item) == Element:
                 elements.append(item)
-
+               
         return elements
     
 
@@ -100,11 +137,16 @@ class Page(object):
     """Object to hold a HTML page."""
     def __init__(self, url):
         try:
+            if not url.startswith("http://"):
+                url = "http://" + url
+                
             self.name = url
             opener = urllib2.build_opener()
             opener.addheaders = [('User-agent', 'Mozilla/5.0')]
             response = opener.open(url)
             self.value = response.read()
+            #self.value = "<html><body><p>hello world</p></body></html>"
+            #self.value = '<html><head><script type="text/javascript">document.write("hello world")</script></head><body><p>hello world</p></body></html>'
             self._parse_html()
         except urllib2.URLError, e:
             print e.reason
@@ -113,7 +155,8 @@ class Page(object):
         """Parses self.value into a list of elements"""
         if self.value == None:
             print "Error: ", self.name, " has a null value."
-
+            
+        self.find_doctype()
         prev_tags = []
         future_tags = self.find_all_tags(self.value)
         for each_tag in future_tags:
@@ -136,13 +179,20 @@ class Page(object):
             else:
                 prev_tags.append(each_tag)
 
-        self.html = prev_tags[1]
+        self.html = prev_tags[0]
+
+
+    def find_doctype(self):
+        pattern = re.compile("<\s*!DOCTYPE|doctype .*>")
+        self.doctype = pattern.match(self.value)
+        if self.doctype != None:
+            self.doctype = self.doctype.group(0)
+            self.value = self.value[self.value.find(">") + 1:]
+            
 
     def find_all_tags(self, stryng):
         """Returns all tags in a stryng"""
-
         tags = []
-
         while True:
             if stryng.strip() == '':
                 break
@@ -159,6 +209,7 @@ class Page(object):
 
             stryng = stryng[index:]
         return tags
+    
 
     def find_all_text(self):
         """Returns all text inside any of the body."""
@@ -173,6 +224,7 @@ class Page(object):
         # return ' '.join( whats left )
         #========= End of Pesudo =================
         pass
+    
 
     def get_children(self):
         """Wraper to to pass html to get_children"""
@@ -191,3 +243,7 @@ class Page(object):
             return tag[1:-1].split()[0]
         
         else: return tag
+
+
+    def __str__(self):
+        return self.html.print_styled(self.html.expand())
