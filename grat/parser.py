@@ -4,6 +4,10 @@ Parser for html code to text
 """
 import urllib2
 import re
+import time
+
+#global start_time
+#start = time.time()
 
 class ArgumentError(Exception):
     """Exception for when an given argument is incorrect
@@ -69,13 +73,15 @@ class Element(object):
     
 
     def flatten(self, lyst):
-        result = []
+        """Returns a flattened list; maintains explicit ordering."""
+        flat_lyst = []
         for item in lyst:
-            if hasattr(item, "__iter__") and not isinstance(item, basestring):
-                result.extend(self.flatten(item))
+            if type(item) == list:
+                flat_lyst.extend(self.flatten(item))
             else:
-                result.append(item)
-        return result
+                flat_lyst.append(item)
+                
+        return flat_lyst
 
       
     def print_styled(self, lyst):
@@ -109,7 +115,7 @@ class Element(object):
             index += 1
             if index > len(lyst) -1:
                 break
-        
+        #print time.time() - start
         return " ".join(lyst)
     
 
