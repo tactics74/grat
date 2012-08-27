@@ -7,7 +7,9 @@ from urllib2 import *
 
 def main():
     webpage = parser.Page("www.python.org")
-    print webpage
+    out = open("test.txt", 'w')
+    out.write( str(webpage) )
+    out.close()
 
 if __name__ == "__main__":
     main()

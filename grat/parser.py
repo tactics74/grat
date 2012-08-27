@@ -4,7 +4,7 @@ Parser for html code to text
 """
 import urllib2
 import re
-import time
+#import time
 
 #global start_time
 #start = time.time()
@@ -88,7 +88,7 @@ class Element(object):
         """Returns stylized html element in string form"""
         lyst = self.flatten(lyst)
         
-        indent = 0
+        indent = -1
         index = 0
         space  = " " * 2
         while True:
@@ -96,8 +96,10 @@ class Element(object):
             #print "This is temp" , temp
             #print indent
             #print "Before: ", lyst[index]        
-            lyst[index] = (space * indent) + lyst[index] + '\n' 
             #print "After: ", lyst[index]
+
+            if temp == "<body>":
+                indent -= 1
 
             if temp.endswith("/>"):
                 pass
@@ -110,13 +112,17 @@ class Element(object):
                     #print "<"
                 indent += 1
 
-            else: pass
+            else:
+                indent += 1
+
+            lyst[index] = (space * indent) + lyst[index] + '\n' 
             
             index += 1
             if index > len(lyst) -1:
                 break
+            
         #print time.time() - start
-        return " ".join(lyst)
+        return "".join(lyst)
     
 
     def get_children(self):
