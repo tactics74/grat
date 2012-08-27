@@ -62,7 +62,11 @@ class Element(object):
                 exp_tags.append(item.start_tag)
                 lyst = item.get_children()
                 for element in lyst:
-                    exp_tags.append(element.expand())
+                    if type(element) == Element:
+                        exp_tags.append(element.expand())
+                    else:
+                        exp_tags.append(element)
+
                 exp_tags.append(item.closing_tag)
             
             else: exp_tags.append(item)       
@@ -70,7 +74,32 @@ class Element(object):
         exp_tags.append(self.closing_tag)
         #print exp_tags, '\n'
         return exp_tags
-    
+
+    def expand_with_style(self, indent = 0):
+        """Returns a list that contains a expanded, flattened, and styled 
+        version of self.content"""
+        exp_tags = []
+        tab = ' ' * 2
+
+        exp_tags.append( (tab * indent) + self.start_tag + '\n')
+        indent += 1
+        for item in self.content:
+            if type(item) == Element:
+                exp_tags.append( (tab * indent) + item.start_tag + '\n')
+                lyst = item.get_children()
+                for element in lyst:
+                    if type(element) == Element:
+                        exp_tags.append( element.expand_with_style(indent + 1) )
+                    else:
+                        exp_tags.append( (tab * indent) + element + '\n')
+
+                exp_tags.append( (tab * indent) + item.closing_tag + '\n')
+
+            else: exp_tags.append( (tab * indent) + item + '\n')
+
+        indent -= 1
+        exp_tags.append( (tab * indent) + self.closing_tag + '\n')
+        return ''.join( exp_tags )
 
     def flatten(self, lyst):
         """Returns a flattened list; maintains explicit ordering."""
@@ -84,8 +113,9 @@ class Element(object):
         return flat_lyst
 
       
-    def print_styled(self, lyst):
+    def print_styled(self):
         """Returns stylized html element in string form"""
+        lyst = self.expand()
         lyst = self.flatten(lyst)
         
         indent = -1
@@ -93,25 +123,11 @@ class Element(object):
         space  = " " * 2
         while True:
             temp = lyst[index]
-            #print "This is temp" , temp
-            #print indent
-            #print "Before: ", lyst[index]        
-            #print "After: ", lyst[index]
 
-            if temp == "<body>":
-                indent -= 1
-
-            if temp.endswith("/>"):
-                pass
-                
-            elif temp.startswith("</"):
-                    #print "</"
-                indent -= 1
-                  
+            if temp.startswith("</"):
+                indent -= 1                  
             elif temp.startswith("<"):
-                    #print "<"
                 indent += 1
-
             else:
                 indent += 1
 
@@ -121,19 +137,12 @@ class Element(object):
             if index > len(lyst) -1:
                 break
             
-        #print time.time() - start
         return "".join(lyst)
     
 
     def get_children(self):
-        """Gets all Element objects inside self.content."""
-        elements = list()
-        
-        for item in self.content:
-            if type(item) == Element:
-                elements.append(item)
-               
-        return elements
+        """Gets all objects inside self.content."""               
+        return [item for item in self.content]
     
 
     def print_stats(self):
@@ -142,7 +151,7 @@ class Element(object):
         print "Content: ", str(self.content)
 
     def __str__(self):
-        return self.expand()
+        return self.expand_with_style()
 
 
 class Page(object):
@@ -157,7 +166,7 @@ class Page(object):
             opener.addheaders = [('User-agent', 'Mozilla/5.0')]
             response = opener.open(url)
             self.value = response.read()
-            #self.value = "<html><body><p>hello world</p></body></html>"
+            #self.value = "<html><body><a><img src='idk.jpg' /></a></body></html>"
             #self.value = '<html><head><script type="text/javascript">document.write("hello world")</script></head><body><p>hello world</p></body></html>'
             self._parse_html()
         except urllib2.URLError, e:
@@ -170,7 +179,9 @@ class Page(object):
             
         self.find_doctype()
         prev_tags = []
-        future_tags = self.find_all_tags(self.value)
+        future_tags = self.find_all_tags()
+        # This giant loop creates elements out of the tags found from 
+        # self.find_all_tags(self.value)
         for each_tag in future_tags:
             if each_tag.startswith("</"):
                 curr_element_tags = []
@@ -190,6 +201,7 @@ class Page(object):
 
             else:
                 prev_tags.append(each_tag)
+        # end of gaint loop to create elements
 
         self.html = prev_tags[0]
 
@@ -202,12 +214,14 @@ class Page(object):
             self.value = self.value[self.value.find(">") + 1:]
             
 
-    def find_all_tags(self, stryng):
+    def find_all_tags(self):
         """Returns all tags in a stryng"""
         tags = []
+        stryng = self.value
         while True:
             if stryng.strip() == '':
                 break
+
             index = stryng.find('<')
 
             if index > stryng.find('>'):
@@ -258,4 +272,4 @@ class Page(object):
 
 
     def __str__(self):
-        return self.html.print_styled(self.html.expand())
+        return str(self.html)
