@@ -19,6 +19,19 @@ for a function/class."""
         return "The given argument is invalid."
 
 
+def flatten(lyst):
+    """Returns a flattened list; maintains explicit ordering."""
+    flat_lyst = []
+    for item in lyst:
+        if type(item) == list:
+            flat_lyst.extend(flatten(item))
+        else:
+            flat_lyst.append(item)
+            
+    return flat_lyst
+
+
+
 class Element(object):
     """Object to hold an HTML element.  If content is a list then index 0 will 
     be start tag, index -1 will be closing tag, and the remaining will be the 
@@ -46,6 +59,9 @@ class Element(object):
                 self.content = content[content.find('>'):
                                        content.find("</")]
                 self.tag_type = self.closing_tag[2:-1].split()[0]
+
+    def __getitem__(self, key):
+        return self.content[key]
 
     def startswith(self, str):
         if self.content != None:
@@ -100,23 +116,11 @@ class Element(object):
         indent -= 1
         exp_tags.append( (tab * indent) + self.closing_tag + '\n')
         return ''.join( exp_tags )
-
-    def flatten(self, lyst):
-        """Returns a flattened list; maintains explicit ordering."""
-        flat_lyst = []
-        for item in lyst:
-            if type(item) == list:
-                flat_lyst.extend(self.flatten(item))
-            else:
-                flat_lyst.append(item)
-                
-        return flat_lyst
-
       
     def print_styled(self):
         """Returns stylized html element in string form"""
         lyst = self.expand()
-        lyst = self.flatten(lyst)
+        lyst = flatten(lyst)
         
         indent = -1
         index = 0
@@ -167,7 +171,7 @@ class Page(object):
             response = opener.open(url)
             self.value = response.read()
             #self.value = "<html><body><a><img src='idk.jpg' /></a></body></html>"
-            #self.value = '<html><head><script type="text/javascript">document.write("hello world")</script></head><body><p>hello world</p></body></html>'
+            #self.value = '<html><head><script type="text/javascript"><script type="text/javascript">if(window.mw){mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.legacy.mwsuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.vector.collapsibleNav","ext.vector.collapsibleTabs","ext.vector.editWarning","ext.vector.simpleSearch","ext.UserBuckets","ext.articleFeedback.startup","ext.articleFeedbackv5.startup","ext.markAsHelpful","ext.Experiments.lib","ext.Experiments.experiments"], null, true);}</script></script></head><body><p>hello world</p></body></html>'
             self._parse_html()
         except urllib2.URLError, e:
             print e.reason
@@ -204,7 +208,8 @@ class Page(object):
         # end of gaint loop to create elements
 
         self.html = prev_tags[0]
-
+        self.head = self.html[0]
+        self.body = self.html[1]
 
     def find_doctype(self):
         pattern = re.compile("<\s*!DOCTYPE|doctype .*>")
@@ -239,19 +244,33 @@ class Page(object):
 
     def find_all_text(self):
         """Returns all text inside any of the body."""
-        #============ Pesudo ====================
-        # Note: This won't work completely bc some
-        # text can be found inside a tag so it 
-        # needs work.
-        #========================================
-        # find body content
-        # remove scipt elements
-        # remove all tags
-        # return ' '.join( whats left )
-        #========= End of Pesudo =================
-        pass
-    
+        # expand all elements
+        no_tags = self.body.expand()
 
+        # flatten list
+        no_tags = flatten(no_tags)
+        temp = list() # need because popping no_tags will cause skips
+
+        # remove all tags
+        index = 0
+        while True:
+            if index >= len(no_tags):
+                break
+
+            if no_tags[index].startswith( '<' ):
+                if no_tags[index].find( "script" ) != -1:
+                    index += 1 # skip the contents of scripts
+
+                if no_tags[index].find( "style" ) != -1:
+                    index += 1 # skip the contents of styles
+
+            else:
+                temp.append(no_tags[index])
+
+            index += 1
+
+        return ' '.join( temp )
+        
     def get_children(self):
         """Wraper to to pass html to get_children"""
         return self.html.get_children()
