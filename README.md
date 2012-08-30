@@ -25,6 +25,9 @@ Install:
 Modules:
 Grat:
     -Grat.parser:
+        -Grat.flatten(list):
+            Returns a flattened list; maintains explicit ordering.
+
         -Grat.Parser.Element(string/list):
             Object to hold an HTML element.  If content is a list then 
             index 0 will be start tag, index -1 will be closing tag, and 
@@ -37,9 +40,16 @@ Grat:
                     of the elements contents and the string given.
 
                 -Element.expand():
-                    Returns a string with all elements expanded to their string
+                    Returns a list with all elements expanded to their string
                     form.  Example: a <p element> might expand to 
                     <p>Hello world!</p> (text inside tags will vary).
+
+                -Element.expand_with_style():
+                    Returns a list that contains a expanded, flattened, and styled 
+                    version of self.content
+
+                -Element.print_styled():
+                    Returns stylized html element in string form.
 
                 -Element.get_children():
                     Returns all Element objects found in the contents of this
@@ -54,6 +64,9 @@ Grat:
             argument.
 
             Methods:
+                -Page.find_doctype():
+                    Returns the doctype of the web page.
+
                 -Page.find_all_tags(string):
                     Returns all tags in a stryng
 
@@ -62,7 +75,10 @@ Grat:
                     Element object None will be returned.  If the tag type of
                     the string can not be found the string will be returned.
 
+                -Page.find_all_text():
+                    Returns all text inside any of the body.
 
-
+                -Page.get_children():
+                    Wraper to to pass html to Element.get_children.
 
 
