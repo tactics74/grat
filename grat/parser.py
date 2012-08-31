@@ -62,6 +62,17 @@ class Element(object):
 
     def __getitem__(self, key):
         return self.content[key]
+    
+
+    def __iter__(self):
+        yield self.start_tag
+        for item in self.content:
+            if type(item) != Element:
+                yield item
+            else:
+                item.__iter__()
+
+        yield self.closing_tag
 
     def startswith(self, str):
         if self.content != None:
@@ -184,8 +195,8 @@ class Page(object):
         self.find_doctype()
         prev_tags = []
         future_tags = self.find_all_tags()
-        # This giant loop creates elements out of the tags found from 
-        # self.find_all_tags(self.value)
+        #This giant loop creates elements out of the tags found from 
+        #self.find_all_tags(self.value)
         for each_tag in future_tags:
             if each_tag.startswith("</"):
                 curr_element_tags = []
@@ -270,7 +281,26 @@ class Page(object):
             index += 1
 
         return ' '.join( temp )
-        
+
+
+    def find_all_sentences(self, include_anchors = False):
+        anchor_found = list()
+        sentences = list()
+        for item in self.html:
+            pattern = re.findall(r'href=[\'"]?([^\'" >]+)', item)
+            print pattern
+            if include_anchors and item.startswith("<a"):
+                anchor_found == list(item)
+                 
+            elif anchor_found != None:
+                anchor_found.append(item)
+                sentences.append(anchor_found)
+                anchor_found = list()
+                 
+            elif not item.startswith("<"):
+                sentences.append(item)
+
+                 
     def get_children(self):
         """Wraper to to pass html to get_children"""
         return self.html.get_children()
