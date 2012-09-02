@@ -184,8 +184,9 @@ class Page(object):
             #self.value = "<html><body><a><img src='idk.jpg' /></a></body></html>"
             #self.value = '<html><head><script type="text/javascript"><script type="text/javascript">if(window.mw){mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.legacy.mwsuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.vector.collapsibleNav","ext.vector.collapsibleTabs","ext.vector.editWarning","ext.vector.simpleSearch","ext.UserBuckets","ext.articleFeedback.startup","ext.articleFeedbackv5.startup","ext.markAsHelpful","ext.Experiments.lib","ext.Experiments.experiments"], null, true);}</script></script></head><body><p>hello world</p></body></html>'
             self._parse_html()
-        except urllib2.URLError, e:
-            print e.reason
+        except (urllib2.URLError, urllib2.HTTPError) as error:
+            self.value = error.read()
+            print error.reason 
 
     def _parse_html(self):
         """Parses self.value into a list of elements"""
@@ -283,23 +284,47 @@ class Page(object):
         return ' '.join( temp )
 
 
-    def find_all_sentences(self, include_anchors = False):
-        anchor_found = list()
+    def find_all_sentences(self):
+        """Returns a list of all sentences in string form"""
         sentences = list()
-        for item in self.html:
-            pattern = re.findall(r'href=[\'"]?([^\'" >]+)', item)
-            print pattern
-            if include_anchors and item.startswith("<a"):
-                anchor_found == list(item)
-                 
-            elif anchor_found != None:
-                anchor_found.append(item)
-                sentences.append(anchor_found)
-                anchor_found = list()
-                 
-            elif not item.startswith("<"):
-                sentences.append(item)
+        outer_pattern = re.compile('<p>(.+?)</p>')
+        inner_pattern = re.compile(r"<[^>]+>|[^<]+")
+        
+        outer_result = str(outer_pattern.findall(self.value))
+        inner_result = inner_pattern.findall(outer_result)
 
+        for text in inner_result:
+            if not '<' in text:
+                sentences.append(text.strip())
+                
+        sentences = " ".join(sentences)
+                
+        return sentences
+        
+
+    def find_all_links(self):
+        """Returns a list of links in string form"""
+        links = list()
+        pattern = re.compile(r'href=[\'"]?([^\'" >]+)')
+        result = pattern.findall(self.value)
+        
+        for link in result:
+            links.append(link)
+            
+        return links
+
+    def find_all_images(self):
+        """Returns a list of images in string form"""
+        images = list()
+        pattern = re.compile(r'src="(.*?)"')
+        result = pattern.findall(self.value)
+        
+        for image in result:
+            images.append(image)
+            
+        return images
+    
+    
                  
     def get_children(self):
         """Wraper to to pass html to get_children"""
