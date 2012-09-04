@@ -178,8 +178,9 @@ class Page(object):
             #self.value = "<html><head></head><body><a><img src='idk.jpg' /></a><p>Hello world</p></body></html>"
             #self.value = '<html><head><script type="text/javascript"><script type="text/javascript">if(window.mw){mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.legacy.mwsuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.vector.collapsibleNav","ext.vector.collapsibleTabs","ext.vector.editWarning","ext.vector.simpleSearch","ext.UserBuckets","ext.articleFeedback.startup","ext.articleFeedbackv5.startup","ext.markAsHelpful","ext.Experiments.lib","ext.Experiments.experiments"], null, true);}</script></script></head><body><p>hello world</p></body></html>'
             self._parse_html()
-        except urllib2.URLError, e:
-            print e.reason
+        except (urllib2.URLError, urllib2.HTTPError) as error:
+            self.value = error.read()
+            print error.reason 
 
     def _parse_html(self):
         """Parses self.value into a list of elements"""
@@ -332,8 +333,30 @@ class Page(object):
 
             index += 1
 
-        return sentences
+        return sentences        
 
+    def find_all_links(self):
+        """Returns a list of links in string form"""
+        links = list()
+        pattern = re.compile(r'href=[\'"]?([^\'" >]+)')
+        result = pattern.findall(self.value)
+        
+        for link in result:
+            links.append(link)
+            
+        return links
+
+    def find_all_images(self):
+        """Returns a list of images in string form"""
+        images = list()
+        pattern = re.compile(r'src="(.*?)"')
+        result = pattern.findall(self.value)
+        
+        for image in result:
+            images.append(image)
+            
+        return images
+    
     def get_children(self):
         """Wraper to to pass html to get_children"""
         return self.html.get_children()
