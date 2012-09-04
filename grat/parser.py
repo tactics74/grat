@@ -65,14 +65,8 @@ class Element(object):
     
 
     def __iter__(self):
-        yield self.start_tag
-        for item in self.content:
-            if type(item) != Element:
-                yield item
-            else:
-                item.__iter__()
-
-        yield self.closing_tag
+        for item in flatten( self.expand() ):
+            yield item
 
     def startswith(self, str):
         if self.content != None:
@@ -181,7 +175,7 @@ class Page(object):
             opener.addheaders = [('User-agent', 'Mozilla/5.0')]
             response = opener.open(url)
             self.value = response.read()
-            #self.value = "<html><body><a><img src='idk.jpg' /></a></body></html>"
+            #self.value = "<html><head></head><body><a><img src='idk.jpg' /></a><p>Hello world</p></body></html>"
             #self.value = '<html><head><script type="text/javascript"><script type="text/javascript">if(window.mw){mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.legacy.mwsuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.vector.collapsibleNav","ext.vector.collapsibleTabs","ext.vector.editWarning","ext.vector.simpleSearch","ext.UserBuckets","ext.articleFeedback.startup","ext.articleFeedbackv5.startup","ext.markAsHelpful","ext.Experiments.lib","ext.Experiments.experiments"], null, true);}</script></script></head><body><p>hello world</p></body></html>'
             self._parse_html()
         except urllib2.URLError, e:
@@ -284,23 +278,62 @@ class Page(object):
 
 
     def find_all_sentences(self, include_anchors = False):
+        """Finds all the sentences in the html and if include_anchors is True
+        it will create a list with index 0 containing the url and index 1 
+        containing the text found in the anchor.
+        TODO: create lists from text tokens found"""
         anchor_found = list()
         sentences = list()
-        for item in self.html:
-            pattern = re.findall(r'href=[\'"]?([^\'" >]+)', item)
-            print pattern
-            if include_anchors and item.startswith("<a"):
-                anchor_found == list(item)
-                 
-            elif anchor_found != None:
-                anchor_found.append(item)
-                sentences.append(anchor_found)
-                anchor_found = list()
-                 
-            elif not item.startswith("<"):
-                sentences.append(item)
+        index = 0
+        pattern = re.compile("href\s*=\s*[\"'].+[\"']") #pattern for href
+        content_lyst = flatten( [item for item in self.body] )
 
-                 
+        while True:
+            if index >= len(content_lyst):
+                break
+
+            # if the item is the start of an a tag
+            if include_anchors and content_lyst[index].startswith("<a"):
+                href = pattern.findall(content_lyst[index])
+                if href:
+                    href = href[0].split('=')[1].split()[0]
+                    anchor_found = [ href ] #Ensures
+                        # that there is not extra text with href
+                else:
+                    anchor_found = [ '' ] # placeholder so href is alway index 1
+
+                index += 1
+                temp = list()
+                # loop through to find all text contained in the anchor
+                while True:
+                    if content_lyst[index].startswith('<a'):
+                        break
+
+                    if content_lyst[index].startswith('<'):
+                        pass
+                    else:
+                        temp.append( content_lyst[index] ) # content
+                    index += 1
+
+                anchor_found.append( ' '.join(temp) ) # all text inside a tags
+                sentences.append( anchor_found )
+                anchor_found = list()
+
+            # if item starts with a < we don't need it
+            elif content_lyst[index].startswith("<"):
+                if content_lyst[index].find( "script" ) != -1:
+                    index += 1 # skip the contents of scripts
+
+                if content_lyst[index].find( "style" ) != -1:
+                    index += 1 # skip the contents of styles
+
+            else:
+                sentences.append( content_lyst[index] )
+
+            index += 1
+
+        return sentences
+
     def get_children(self):
         """Wraper to to pass html to get_children"""
         return self.html.get_children()
@@ -318,7 +351,6 @@ class Page(object):
             return tag[1:-1].split()[0]
         
         else: return tag
-
 
     def __str__(self):
         return str(self.html)

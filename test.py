@@ -12,7 +12,8 @@ def save(content):
 
 def main():
     webpage = parser.Page("http://en.wikipedia.org/wiki/Ovid")
-    save( webpage.find_all_sentences() )
+    webpage.find_all_sentences(True)
+    #save( '\n'.join( webpage.find_all_sentences(False) ) )
 
 if __name__ == "__main__":
     main()
